@@ -1,9 +1,10 @@
 import type { IncomingMessage, ServerResponse } from "http";
 import productService from "../service/product.service";
 import type { iProduct } from "../types/product";
+import { bodyParser } from "../utils/parseBody";
 
 
-const productController = (req: IncomingMessage, res: ServerResponse) => {
+const  productController = async (req: IncomingMessage, res: ServerResponse) => {
 
         const url = req.url;
         const method = req.method;
@@ -27,6 +28,9 @@ const productController = (req: IncomingMessage, res: ServerResponse) => {
               JSON.stringify({ message: "Single product retrived successfully!", data: product }),
             );
 
+        }else if(method === "POST" && url === "/products") {
+          const body = await bodyParser(req)
+          console.log(body)
         }
         
 }
