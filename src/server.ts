@@ -1,9 +1,24 @@
-import express from "express"
-const app = express()
+import express, { type Application, type Request, type Response } from "express"
+const app: Application = express()
 const port = 5000
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+app.get('/', (req: Request, res: Response) => {
+  res.status(200).json({
+    success: true,
+    message: "This is root route",
+    author: "Foysal"
+  })
+})
+
+
+app.post("/", async(req:Request, res: Response) => {
+    console.log(req.body)
+    res.status(200).json({
+        success: true,
+        message: "Successfully post"
+    })
 })
 
 app.listen(port, () => {
