@@ -1,15 +1,11 @@
-import {createServer, IncomingMessage, Server, ServerResponse} from "http";
-import { json } from "stream/consumers";
-import routeHandler from "./routes/route";
+import express from "express"
+const app = express()
+const port = 5000
 
-const server: Server = createServer((req: IncomingMessage, res : ServerResponse) => {
-    // console.log(req.url)
-    // console.log(req.method)
-
-    routeHandler(req, res)
-    
+app.get('/', (req, res) => {
+  res.send('Hello World!')
 })
 
-server.listen(5000, ()=>{
-    console.log("Server is running!")
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
 })
