@@ -49,11 +49,11 @@ app.get("/", async(req:Request, res: Response) => {
 app.post("/api/v1/users" , async(req:Request, res: Response) => {
     try{
         console.log(req.body)
-    const {name, email, password, age} = req.body;
+    const {name, email, password, age , is_Active} = req.body;
 
     const result = await pool.query(
-        `INSERT INTO users(name, email, password, age) VALUES($1,$2, $3, $4) RETURNING *`,
-        [name, email, password, age],
+        `INSERT INTO users(name, email, password, age ,is_Active) VALUES($1,$2, $3, $4, $5) RETURNING *`,
+        [name, email, password, age, is_Active],
     )
     console.log(result)
 
@@ -118,18 +118,19 @@ app.put("/api/v1/users/:id" , async(req: Request, res: Response)=> {
     try{
 
         const {id} = req.params;
-        const {name, password, age, is_Active} = req.body;
+        const {name, email, password, age, is_Active} = req.body;
        
 
         const result = await pool.query(`UPDATE users 
             SET
             name = COALESCE($1, name),
-            password = COALESCE($2, password), 
-            age = COALESCE($3, age),
-            is_Active = COALESCE($4, is_Active),
+            email = COALESCE($2, email), 
+            password = COALESCE($3, password), 
+            age = COALESCE($4, age),
+            is_Active = COALESCE($5, is_Active),
             updated_at = NOW()
-            WHERE id = $5 RETURNING *
-             `, [name ?? null , password ?? null, age ?? null, is_Active ?? null, id ])
+            WHERE id = $6 RETURNING *
+             `, [name ?? null, email ?? null , password ?? null, age ?? null, is_Active ?? null, id ])
 
              console.log(result)
 
