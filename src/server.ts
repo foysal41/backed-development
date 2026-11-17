@@ -99,6 +99,13 @@ app.get("/api/v1/users/:id" , async(req:Request, res: Response)=> {
         const {id} = req.params
         const result = await pool.query(`SELECT * FROM users WHERE id=$1`, [id]);
         // console.log(result)
+
+        if(result.rowCount === 0) {
+            res.status(404).json({
+                success: false,
+                message: "User not found!!"
+            })
+        }
         res.status(200).json({
             success: true,
             message: "User retrived successfully",
@@ -134,6 +141,13 @@ app.put("/api/v1/users/:id" , async(req: Request, res: Response)=> {
 
              console.log(result)
 
+             if(result.rowCount === 0) {
+            res.status(404).json({
+                success: false,
+                message: "User not found!!"
+            })
+        }
+
              res.status(200).json({
                 success: true,
                 message: "User Name Update successfully",
@@ -143,6 +157,32 @@ app.put("/api/v1/users/:id" , async(req: Request, res: Response)=> {
 
     }catch(error) {
         res.status(500).json({
+            success: false,
+            message: error,
+            error: error
+        })
+    }
+})
+
+
+//Delete route
+app.delete("/api/v1/users/:id" , async(req: Request, res: Response) => {
+    try{
+        const {id} = req.params;
+        const result = await pool.query(`DELETE FROM users WHERE id=$1`  , [id]);
+
+        if(result.rowCount === 0) {
+            res.status(404).json({
+                success: false,
+                message: "User not found!!"
+            })
+        }
+         res.status(200).json({
+                success: true,
+                message: "User Delete successfully",             
+            })
+    }catch(error){
+         res.status(500).json({
             success: false,
             message: error,
             error: error
