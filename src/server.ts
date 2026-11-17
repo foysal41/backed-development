@@ -2,11 +2,11 @@ import express, { type Application, type Request, type Response } from "express"
 import { json } from "node:stream/consumers";
 const app: Application = express()
 import {Pool} from "pg"
-const port = 5000 
+import config from "./config";
 app.use(express.json())
 
 const pool = new Pool({
-    connectionString: "postgresql://neondb_owner:npg_XEZunMj1wYW8@ep-little-frog-b3bpmp5n.c-4.ap-southeast-1.aws.neon.tech/neondb?sslmode=false&channel_binding=require"
+    connectionString: config.connection_string
 })
 
 const initDB = async () => {
@@ -191,6 +191,6 @@ app.delete("/api/v1/users/:id" , async(req: Request, res: Response) => {
 })
 
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+app.listen(config.port, () => {
+  console.log(`Example app listening on port ${config.port}`)
 })
