@@ -1,5 +1,6 @@
 import express, { type Application, type Request, type Response } from "express"
 import pool from "./db"
+import { userRoute } from "./modules/users/users.route";
 
 const app: Application = express()
 
@@ -20,31 +21,9 @@ app.get("/", async(req:Request, res: Response) => {
 })
 
 
-app.post("/api/v1/users" , async(req:Request, res: Response) => {
-    try{
-        console.log(req.body)
-    const {name, email, password, age , is_Active} = req.body;
 
-    const result = await pool.query(
-        `INSERT INTO users(name, email, password, age ,is_Active) VALUES($1,$2, $3, $4, $5) RETURNING *`,
-        [name, email, password, age, is_Active],
-    )
-    console.log(result)
+app.use("/api/v1/users" , userRoute)
 
-    res.status(201).json({
-        success: true,
-        message: "This is post request",
-        data: result.rows[0]
-    })
-    }catch(error : any) {
-         res.status(500).json({
-        success: false,
-        message: error.message,
-        error: error
-        
-    })
-    }
-})
 
 
 app.get("/api/v1/users" , async(req:Request, res: Response) => {
