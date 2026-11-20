@@ -3,7 +3,8 @@ import  jwt, { type JwtPayload }  from "jsonwebtoken";
 import config from "../config";
 import pool from "../db";
 const auth = async(req : Request, res: Response, next: NextFunction) => {
-   
+    
+
     // 1-> check if the token exist
     const token = req.headers.authorization;
     // console.log(token)
@@ -36,6 +37,9 @@ const auth = async(req : Request, res: Response, next: NextFunction) => {
         message: "Forbidden!!"
     })
    }
+
+   req.user = decode
+   
 
     next()
 }
