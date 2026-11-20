@@ -2,6 +2,8 @@ import jwt from "jsonwebtoken";
 import pool from "../../db";
 import type { IAuth } from "./auth.interface";
 import bcrypt from 'bcrypt';
+import config from "../../config";
+
 
 
 const loginUserIntoDB = async (payload : IAuth) => {
@@ -36,7 +38,7 @@ const loginUserIntoDB = async (payload : IAuth) => {
         email: user.rows[0].email
     }
 
-    const accessToken = jwt.sign(jwtPayLoad , 'asdf;lkj', {expiresIn: "1d"})
+    const accessToken = jwt.sign(jwtPayLoad , config.jwt_secret, {expiresIn: "1d"})
    
 
   
