@@ -2,8 +2,9 @@ import { Router, type NextFunction, type Request, type Response } from "express"
 import  jwt, { type JwtPayload }  from "jsonwebtoken";
 import config from "../config";
 import pool from "../db";
-const auth = async(req : Request, res: Response, next: NextFunction) => {
-    
+const auth = (...roles : any) =>  {
+    return async(req : Request, res: Response, next: NextFunction) =>{
+        // console.log(roles)
 
     // 1-> check if the token exist
     const token = req.headers.authorization;
@@ -42,5 +43,6 @@ const auth = async(req : Request, res: Response, next: NextFunction) => {
    
 
     next()
+    } 
 }
 export default auth;
