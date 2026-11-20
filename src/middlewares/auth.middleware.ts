@@ -2,15 +2,18 @@ import { Router, type NextFunction, type Request, type Response } from "express"
 import  jwt, { type JwtPayload }  from "jsonwebtoken";
 import config from "../config";
 import pool from "../db";
-const auth = (...roles : any) =>  {
-    return async(req : Request, res: Response, next: NextFunction) =>{
-        // console.log(roles)
+import type { Role } from "../types";
 
-    // 1-> check if the token exist
+const auth = (...roles : Role[]) =>  {
+    return async(req : Request, res: Response, next: NextFunction) =>{
+        try{
+            // console.log(roles)
+
+    // 1-> check if the token exists
     const token = req.headers.authorization;
     // console.log(token)
    if(!token){
-    res.status(401).json({
+    return  res.status(401).json({
         success: false,
         message: "Unauthorized Access!!"
     })
@@ -25,7 +28,7 @@ const auth = (...roles : any) =>  {
 
 //    check user exist or not
    if(user.rowCount  === 0 ){
-    res.status(404).json({
+    return res.status(404).json({
         success: false,
         message: "User Not Found!!"
     })
@@ -33,16 +36,27 @@ const auth = (...roles : any) =>  {
 
 //    CHeck if he user active or not
    if(!user.rows[0].is_active){
-    res.status(401).json({
+    return res.status(401).json({
         success: false,
         message: "Forbidden!!"
     })
    }
 
-   req.user = decode
+  
+
+   if(roles.length && !roles.includes(user.rows[0].role)){
+    return res.status(401).json({
+        success: false,
+        message: "Unauthorized Access!! Hint: Go to users.route.ts where add the role inside the auth()"
+    })
+   }
    
+    req.user = decode
 
     next()
+        }catch(error){
+            next(error)
+        }
     } 
 }
 export default auth;
