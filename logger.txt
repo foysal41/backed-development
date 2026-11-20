@@ -12,3 +12,41 @@
  Method : GET | URL : /favicon.ico | Time: 1795150646421
 
  Method : GET | URL : /favicon.ico | Time: 1795150646709
+
+ Method : GET | URL : /api/v1/users | Time: 1795154376041
+
+ Method : GET | URL : /api/v1/users | Time: 1795154554645
+
+ Method : GET | URL : /api/v1/users | Time: 1795155300240
+
+ Method : POST | URL : /api/v1/auth/login | Time: 1795155493218
+
+ Method : POST | URL : /api/v1/auth/login | Time: 1795155515121
+
+ Method : POST | URL : /api/v1/auth/login | Time: 1795155559895
+
+ Method : POST | URL : /api/v1/auth/login | Time: 1795155680657
+
+ Method : POST | URL : /api/v1/auth/login | Time: 1795155703115
+
+ Method : POST | URL : /api/v1/auth/login | Time: 1795155712445
+
+ Method : GET | URL : /api/v1/users/ | Time: 1795155777418
+
+ Method : GET | URL : /api/v1/users/ | Time: 1795156530476
+
+ Method : GET | URL : /api/v1/users/ | Time: 1795156612307
+
+ Method : GET | URL : /api/v1/users/ | Time: 1795156636836
+
+ Method : GET | URL : /api/v1/users/ | Time: 1795156642558
+
+ Method : GET | URL : /api/v1/users/ | Time: 1795156687764
+
+ Method : GET | URL : /api/v1/users/ | Time: 1795156694074
+
+ Method : GET | URL : /api/v1/users/ | Time: 1795156698883
+
+ Method : GET | URL : /api/v1/users/ | Time: 1795156707182
+
+ Method : GET | URL : /api/v1/users/ | Time: 1795156711189
