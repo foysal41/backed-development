@@ -5,9 +5,11 @@ import { profileRoute } from "./modules/profile/profile.route";
 import { authRoute } from "./modules/auth/auth.route";
 import logger from "./middlewares/logger.middleware";
 import globalErrorHandler from "./middlewares/globalErrorHandler";
+import cookieParser from "cookie-parser";
 
 const app: Application = express()
 
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded())
