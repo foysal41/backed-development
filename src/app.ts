@@ -4,6 +4,7 @@ import { userRoute } from "./modules/users/users.route";
 import { profileRoute } from "./modules/profile/profile.route";
 import { authRoute } from "./modules/auth/auth.route";
 import logger from "./middlewares/logger.middleware";
+import globalErrorHandler from "./middlewares/globalErrorHandler";
 
 const app: Application = express()
 
@@ -33,7 +34,8 @@ app.get("/", async(req:Request, res: Response) => {
 })
 
 
-
+// Global Error Handler
+app.use(globalErrorHandler)
 
 
 export default app
