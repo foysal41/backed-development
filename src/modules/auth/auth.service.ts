@@ -40,10 +40,12 @@ const loginUserIntoDB = async (payload : IAuth) => {
     }
     
 
-    const accessToken = jwt.sign(jwtPayLoad , config.jwt_secret, {expiresIn: "1d"})
+    const accessToken = jwt.sign(jwtPayLoad , config.jwt_secret, {expiresIn: "1h"})
+
+     const refreshToken = jwt.sign(jwtPayLoad , config.refresh_secret, {expiresIn: "10d"})
 
   
-    return accessToken
+    return {accessToken, refreshToken }
 }
 
 
