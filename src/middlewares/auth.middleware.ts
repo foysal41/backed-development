@@ -1,4 +1,4 @@
-import { Router, type NextFunction, type Request, type Response } from "express";
+import { type NextFunction, type Request, type Response } from "express";
 import  jwt, { type JwtPayload }  from "jsonwebtoken";
 import config from "../config";
 import pool from "../db";

@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import { authService } from "./auth.service";
+import sendResponse from '../../utils/sendResponse';
 
 
 const loginUser = async (req: Request, res: Response) => {
@@ -15,16 +16,11 @@ const loginUser = async (req: Request, res: Response) => {
             domain: "localhost",    // প্রোডাকশনে মূল ডোমেইন (যেমন 'example.com')
             // maxAge: 1000 * 60 * 60 * 24 * 10 (অপশনাল: কতক্ষণ কুকি সেভ থাকবে)
         });
-        res.status(200).json({
-            success: true,
-            message: "User Logged in successfully",
-            data: result
-        });
-    } catch (error: any) {
-        res.status(401).json({
-            success: false,
-            message: error.message || "Authentication failed",
-        });
+
+        sendResponse(res, {statusCode: 200, success: true, message: "User Logged in successfully ", data: result})
+
+    } catch (error: any) {     
+        sendResponse(res, {statusCode: 401,success: false, message: error.message || "Authentication failed", error: error})
     }
 };
 
